@@ -7,7 +7,21 @@
 	<link rel="stylesheet" href="css.css">
 	<link href='https://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js">
+	</script>
 	<script>
+	jQuery(document).ready(updateStockPrice);
+	function updateStockPrice(){
+		//Consult https://developer.yahoo.com/yql/console/ on how this works
+		//To change ticker, go to the above and get a new link by changing query
+	jQuery.getJSON('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22GCZ16.CMX%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=',function(response){
+			console.log(response);
+			var stockInfo = response.query.results.quote;
+			var stockString = "Au: " + stockInfo.LastTradePriceOnly + " " + stockInfo.Change;;
+			jQuery('#stockTick').html(stockString);
+		});
+	setTimeout("updateStockPrice()", 10 * 60 * 1000);
+	}
 	function startTime() {
     var vancouverTime = new Date();
     var h = vancouverTime.getHours();
@@ -37,7 +51,7 @@ function checkTime(i) {
 
 <body onload="startTime()">
 <h1 id="time" style="margin-top:4%">Test</h1>
-<h1 id="stockPrice"> placeholder </h1>
+<h1 id="stockTick"></h1>
 </body>
 
 </html>
