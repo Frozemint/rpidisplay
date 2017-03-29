@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>rpidisplay</title>
+	<meta name='viewport' content='width=device-width, user-scalable=no'>
+	<link rel="stylesheet" href="css.css">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
+
+	<script>
+	function startTime() {
+    var vancouverTime = new Date();
+    var h = vancouverTime.getHours();
+    var m = vancouverTime.getMinutes();
+    var s = vancouverTime.getSeconds();
+
+		var hongKongHours = (vancouverTime.getUTCHours() + 8) % 24;
+		var londonHours = (vancouverTime.getHours() + 8) % 24;
+
+		londonHours = checkTime(londonHours);
+		hongKongHours = checkTime(hongKongHours);
+    m = checkTime(m);
+    s = checkTime(s);
+
+    document.getElementById('time').innerHTML =
+    "YVR" + h + ":" + m + ":" + s + "   HK" + hongKongHours + ":" + m + "|" + londonHours;
+    var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+    if (i < 10) {i = "0" + i};
+		//Adding leading zero for time
+    return i;
+}
+
+	</script>
+</head>
+
+<body onload="startTime()">
+<h1 id="time" style="margin-top:4%">Test</h1>
+<h1 id="stockPrice"> placeholder </h1>
+</body>
+
+</html>
