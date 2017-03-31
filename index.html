@@ -28,11 +28,11 @@
 			var vancouverWeather = data.currently;
 			var vancouverForecast = data.daily.data[0];
 
-			var weatherString = "NOW" + vancouverWeather.apparentTemperature + "," + vancouverWeather.temperature
-			+ "TMR" + vancouverForecast.apparentTemperatureMax + "," + vancouverForecast.apparentTemperatureMin;
+			var weatherString = "NOW" + Math.round(vancouverWeather.apparentTemperature) + "," + Math.round(vancouverWeather.temperature)
+			+ "TMR" + Math.round(vancouverForecast.apparentTemperatureMax) + "," + Math.round(vancouverForecast.apparentTemperatureMin);
 			console.log(weatherString);
 			jQuery('#weatherTick').html(weatherString);
-			setTimeout("updateWeather()", 3 * 60 * 60 * 1000); //Update every 3hr
+			setTimeout("updateWeather()", 1.25 * 60 * 60 * 1000); //Update every 3hr
 		});
 }
 	function startTime() {
