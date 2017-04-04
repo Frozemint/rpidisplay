@@ -11,6 +11,7 @@
 	<script src="weather.js"></script>
 	<script>
 	jQuery(document).ready(updateStockPrice);
+	jQuery(document).ready(updateWeather);
 	function updateStockPrice(){
 		//Consult https://developer.yahoo.com/yql/console/ on how this works
 		//To change ticker, go to the above and get a new link by changing query
@@ -32,14 +33,17 @@
 			+ "TMR" + Math.round(vancouverForecast.apparentTemperatureMax) + "," + Math.round(vancouverForecast.apparentTemperatureMin);
 			console.log(weatherString);
 			jQuery('#weatherTick').html(weatherString);
-			setTimeout("updateWeather()", 1.25 * 60 * 60 * 1000); //Update every 3hr
+			setTimeout("updateWeather()", 1 * 60 * 60 * 1000); //Update every 1hr
 		});
 }
 	function startTime() {
     var vancouverTime = new Date();
-    var h = vancouverTime.getHours();
-    var m = vancouverTime.getMinutes();
-    var s = vancouverTime.getSeconds();
+		const monthName = ["Jan", "Feb", "Mar",
+    "Apr", "May", "Jun", "Jul",
+    "Aug", "Sep", "Oct",
+    "Nov", "Dec"];
+
+		const weekName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 		//UTC = GMT, and HK time GMT+8 (no daylight savings)
 		var hongKongHours = (vancouverTime.getUTCHours() + 8) % 24;
@@ -47,12 +51,12 @@
 
 		londonHours = checkTime(londonHours);
 		hongKongHours = checkTime(hongKongHours);
-    m = checkTime(m);
-    s = checkTime(s);
 
     document.getElementById('time').innerHTML =
-    "YVR" + h + ":" + m + ":" + s + "   HK" + hongKongHours + ":" + m + "|" + londonHours;
-    var t = setTimeout(startTime, 500);
+    "YVR" + vancouverTime.getHours() + ":" + checkTime(vancouverTime.getMinutes()) + ":" + checkTime(vancouverTime.getSeconds()) + "   HK" + hongKongHours + ":" + checkTime(vancouverTime.getMinutes()) + "|" + londonHours;
+    setTimeout(startTime, 500);
+
+		document.getElementById('dateTime').innerHTML = monthName[vancouverTime.getMonth()] + " " + vancouverTime.getDate() + " " + weekName[vancouverTime.getDay()];
 }
 function checkTime(i) {
     if (i < 10) {i = "0" + i};
@@ -65,6 +69,7 @@ function checkTime(i) {
 
 <body onload="startTime(); updateWeather();">
 <h1 id="time" style="margin-top:4%">YVR Time</h1>
+<h1 id="dateTime">YVR Date</h1>
 <h1 id="stockTick">Stock Price</h1>
 <h1 id="weatherTick">YVR Weather</h1>
 </body>
