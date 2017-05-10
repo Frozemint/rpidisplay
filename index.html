@@ -25,17 +25,28 @@
 }
 	function updateWeather(){
 		getWeather().done(function(data){
+
+			updateSunTime(data); //pass the data to the function, so I don't have to call dark sky twice
 			console.log(data);
 			var vancouverWeather = data.currently;
 			var vancouverForecast = data.daily.data[0];
 
-			var weatherString = "NOW" + Math.round(vancouverWeather.apparentTemperature) + "," + Math.round(vancouverWeather.temperature)
-			+ "TMR" + Math.round(vancouverForecast.apparentTemperatureMax) + "," + Math.round(vancouverForecast.apparentTemperatureMin);
+			var weatherString = "NOW " + Math.round(vancouverWeather.apparentTemperature) + "," + Math.round(vancouverWeather.temperature)
+			+ " TMR " + Math.round(vancouverForecast.apparentTemperatureMax) + "," + Math.round(vancouverForecast.apparentTemperatureMin);
 			console.log(weatherString);
 			jQuery('#weatherTick').html(weatherString);
 			setTimeout("updateWeather()", 1 * 60 * 60 * 1000); //Update every 1hr
 		});
 }
+	function updateSunTime(data){
+		var sunriseTime = new Date(data.daily.data[0].sunriseTime * 1000);
+		var sunsetTime = new Date(data.daily.data[0].sunsetTime * 1000);
+
+		var sunTimeString = "RISE " + checkTime(sunriseTime.getHours().toString()) + sunriseTime.getMinutes().toString() + " SET " + sunsetTime.getHours().toString() + sunsetTime.getMinutes().toString();
+
+		jQuery('#sunMovementTime').html(sunTimeString);
+		setTimeout("updateSunTime()", 4 * 60 * 60 * 1000);
+	}
 	function startTime() {
     var vancouverTime = new Date();
 		const monthName = ["Jan", "Feb", "Mar",
@@ -72,6 +83,7 @@ function checkTime(i) {
 <h1 id="dateTime">YVR Date</h1>
 <h1 id="stockTick">Stock Price</h1>
 <h1 id="weatherTick">YVR Weather</h1>
+<h1 id="sunMovementTime">SunsetSunRise Time</h1>
 </body>
 
 </html>
