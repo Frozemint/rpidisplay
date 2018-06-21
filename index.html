@@ -5,17 +5,18 @@
 	<title>rpidisplay</title>
 	<meta name='viewport' content='width=device-width, user-scalable=no'>
 	<link rel="stylesheet" href="css.css">
+	<script src="time.js"></script>
 	<script>
-		function getDim(){
-			document.getElementById('container').innerHTML = window.innerWidth + "x" + window.innerHeight;
+		function initPage(){
+			startTime(); //see time.js
 		}
 	</script>
 </head>
 
-<body onload="getDim()">
-<div id="container">
-	<h1>Test</h1>
-</div>
+<body onload="initPage();">
+	<div id="container">
+		<div id="timeText">Test</div>
+	</div>
 </body>
 
 </html>

@@ -1,13 +1,10 @@
 @charset "UTF-8";
 
+/*346x154*/
 html, body {
 	background-color: #424242;
 	font-family: Verdana, sans-serif;
-	text-align: center;
-}
-
-h1 {
-	color: white;
+	text-align: left;
 }
 
 #container{
@@ -17,7 +14,10 @@ h1 {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	width: 100px;
-	height: 100px;
-	color: white;
+	width: 350px;
+	height: 160px;
+	background-color: yellow;
+}
+#timeText {
+	
 }
