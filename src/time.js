@@ -10,9 +10,7 @@ function startTime() {
 	// hongKongHours = checkTime(hongKongHours);
     m = checkTime(m);
     s = checkTime(s);
-    document.getElementById('timeWeatherText').innerHTML =
-     (h + ":" + m + ":" + s).bold();
-    var t = setTimeout(startTime, 500);
+    return (h + ":" + m + ":" + s).bold();
 }
 function checkTime(i) {
     if (i < 10) {i = "0" + i};
