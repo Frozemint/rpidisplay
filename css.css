@@ -7,6 +7,10 @@ html, body {
 	text-align: left;
 }
 
+.large{
+	font-size: 28px;
+}
+
 #container{
 	position: absolute;
 	margin: auto;
@@ -14,10 +18,10 @@ html, body {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	width: 350px;
-	height: 160px;
-	background-color: yellow;
+	width: 360px;
+	height: 200px;
+	background-color: white;
 }
-#timeText {
-	
+#timeWeatherText {
+	color: black;
 }

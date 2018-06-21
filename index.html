@@ -5,17 +5,19 @@
 	<title>rpidisplay</title>
 	<meta name='viewport' content='width=device-width, user-scalable=no'>
 	<link rel="stylesheet" href="css.css">
-	<script src="time.js"></script>
+	<script src="src/time.js"></script>
+	<script src="src/weather.js"></script>
 	<script>
 		function initPage(){
 			startTime(); //see time.js
+			getWeather(); //see weather.js
 		}
 	</script>
 </head>
 
 <body onload="initPage();">
 	<div id="container">
-		<div id="timeText">Test</div>
+		<div id="timeWeatherText" class="large">Test</div>
 	</div>
 </body>
 
