@@ -1,5 +1,6 @@
 function getWeather(){
-	var url = "https://api.darksky.net/forecast//49.241722,-123.112812?exclude=hourly,flags,daily&units=si";
+	var weatherAPIKey = config.WEATHER_API_KEY;
+	var url = "https://api.darksky.net/forecast/" + weatherAPIKey + "/49.241722,-123.112812?exclude=hourly,flags,daily&units=si";
 	// $.ajax({
 	// 	url: url,
 	// 	dataType: "jsonp",
