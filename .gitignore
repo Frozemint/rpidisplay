@@ -1,3 +1,5 @@
 *.json
 *.txt
 weather.js
+config.js
+
