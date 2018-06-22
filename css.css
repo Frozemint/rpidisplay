@@ -7,6 +7,10 @@ html, body {
 	text-align: left;
 }
 
+canvas {
+
+}
+
 .large{
 	font-size: 28px;
 }
@@ -22,7 +26,13 @@ html, body {
 	height: 200px;
 	background-color: white;
 }
-#timeText, #weatherText {
-	display:inline;
+#firstline {
+	padding: 8px;
+	display:inline-flex;
 	color: black;
 }
+#firstline *{
+	margin-right: 5px;
+}
+
+
