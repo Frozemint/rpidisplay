@@ -1,17 +1,17 @@
 function getWeather(){
 	var weatherAPIKey = config.WEATHER_API_KEY;
 	var weatherURL = "https://api.darksky.net/forecast/" + weatherAPIKey + "/49.241722,-123.112812?exclude=hourly,flags,daily&units=si";
-	// $.ajax({
-	// 	url: weatherURL,
-	// 	dataType: "jsonp",
-	// 	async: false,
-	// 	success: function(data){
-	// 		console.log(data);
-	// 		console.log(data.currently.apparentTemperature + "°C " + data.currently.summary);
-	// 		setWeatherIcon(data.currently.icon);
-	// 		document.getElementById('weatherText').innerHTML = data.currently.apparentTemperature + "°C ";
-	// 	}
-	// });
+	$.ajax({
+		url: weatherURL,
+		dataType: "jsonp",
+		async: false,
+		success: function(data){
+			console.log(data);
+			console.log(data.currently.apparentTemperature + "°C " + data.currently.summary);
+			setWeatherIcon(data.currently.icon);
+			document.getElementById('weatherText').innerHTML = data.currently.apparentTemperature + "°C ";
+		}
+	});
 }
 
 function setWeatherIcon(string){
@@ -20,9 +20,14 @@ function setWeatherIcon(string){
 }
 
 function getBusesTime(){
+	getBusJSON(config.PRIMARY_BUS_STOP_ID, config.PRIMARY_BUS_ROUTE, 'primaryBusText');
+	getBusJSON(config.SECONDARY_BUS_STOP_ID, config.SECONDARY_BUS_ROUTE, 'secondaryBusText');
+}
+
+function getBusJSON(stopID, busRoute, textElementID){
 	//Jansen, if you figured out a better way in the future, please do let me know
 	//translink url: http://api.translink.ca/rttiapi/v1/stops/[STOP NO]/estimates?apikey=[API]&count=3&timeframe=120&routeNo=[ROUTE NO]
-	var busURL = `https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%20%3D%20'http%3A%2F%2Fapi.translink.ca%2Frttiapi%2Fv1%2Fstops%2F${config.PRIMARY_BUS_STOP_ID}%2Festimates%3Fapikey%3D${config.TRANSLINK_API_KEY}%26count%3D4%26timeframe%3D120%26routeNo%3D${config.PRIMARY_BUS_ROUTE}'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`;
+	var busURL = `https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%20%3D%20'http%3A%2F%2Fapi.translink.ca%2Frttiapi%2Fv1%2Fstops%2F${stopID}%2Festimates%3Fapikey%3D${config.TRANSLINK_API_KEY}%26count%3D4%26timeframe%3D120%26routeNo%3D${busRoute}'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`;
 	$.ajax({
 		url: busURL,
 		dataType: "jsonp",
@@ -30,13 +35,15 @@ function getBusesTime(){
 		success: function(data){
 			//Jansen, if you figured out a better way in the future, please do let me know
 			console.log(busURL);
-			console.log(data);
-			data = data.query.results.NextBuses.NextBus;
-			console.log(data.Schedules.Schedule[0].ExpectedCountdown);
-			document.getElementById('primaryBusText').innerHTML = 'Bus #' + data.RouteNo + ' in: ' + getBusArrivals(data) + " mins";
-			console.log(data.RouteNo + " " + data.Schedules.Schedule); 
+			try {
+				data = data.query.results.NextBuses.NextBus;
+				document.getElementById(textElementID).innerHTML = 'Bus #' + data.RouteNo + ' in: ' + getBusArrivals(data) + " min";
+				console.log(data.RouteNo + " " + data.Schedules.Schedule); 
+			} catch (e){
+				document.getElementById(textElementID).innerHTML = "Can't get #" + busRoute + " bus info!";
+			}
 		}
-	})
+	});
 }
 
 function getBusArrivals(data){

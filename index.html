@@ -20,6 +20,9 @@
 			setInterval(function(){
 				getWeather(); //see scripts.js
 			}, 900000);
+			setInterval(function(){
+				getBusesTime();
+			}, 60000);
 		}
 	</script>
 </head>
@@ -33,6 +36,9 @@
 		</div>
 		<div id="secondline" class="line">
 			<div id="primaryBusText">Test</div>
+		</div>
+		<div id="thirdline" class="line">
+			<div id="secondaryBusText">Test</div>
 		</div>
 	</div>
 </body>

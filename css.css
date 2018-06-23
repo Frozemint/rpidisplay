@@ -36,8 +36,9 @@ html, body {
 	color: black;
 }
 
-#secondline {
+#secondline, #thirdline{
 	font-size: 22px;
+	height: 22px !important;
 }
 
 
