@@ -15,12 +15,10 @@
 			getWeather();
 			getBusesTime();
 			setInterval(function(){
-				//see scripts.js
-				document.getElementById('timeText').innerHTML = startTime(); 
+				document.getElementById('timeText').innerHTML = startTime(); //see scripts.js
 			}, 900); 
 			setInterval(function(){
-				//see scripts.js
-				getWeather();
+				getWeather(); //see scripts.js
 			}, 900000);
 		}
 	</script>
@@ -28,13 +26,13 @@
 
 <body onload="initPage();">
 	<div id="container">
-		<div id="firstline">
-			<div id="timeText" class="large">Test</div>
-			<div id="weatherText" class="large">Test</div>
+		<div id="firstline" class="line">
+			<div id="timeText">Test</div>
+			<div id="weatherText">Test</div>
 			<canvas id="weatherIcon" width="40" height="40"></canvas>
 		</div>
-		<div id="secondline">
-			<div id=""
+		<div id="secondline" class="line">
+			<div id="primaryBusText">Test</div>
 		</div>
 	</div>
 </body>
