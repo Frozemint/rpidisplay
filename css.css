@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 /*346x154*/
+/*320x240*/
 html, body {
 	background-color: #424242;
 	font-family: Verdana, sans-serif;
@@ -14,8 +15,8 @@ html, body {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	width: 360px;
-	height: 200px;
+	width: 330px;
+	height: 240px;
 	background-color: white;
 	font-size: 28px;
 }
