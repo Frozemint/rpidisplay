@@ -1,10 +1,12 @@
 
 function getWeather(){
-	getWeatherData(config.PRIMARY_WEATHER_LAT, config.PRIMARY_WEATHER_LON, 'weatherText', 'weatherIcon');
-	getWeatherData(config.SECONDARY_WEATHER_LAT, config.SECONDARY_WEATHER_LON, 'secondaryWeatherText', 'secondaryWeatherIcon');
+	getWeatherData(config.PRIMARY_WEATHER_LAT, config.PRIMARY_WEATHER_LON, 
+		'weatherText', 'weatherIcon', ["temp"]);
+	getWeatherData(config.SECONDARY_WEATHER_LAT, config.SECONDARY_WEATHER_LON, 
+		'secondaryWeatherText', 'secondaryWeatherIcon', [config.SECONDARY_WEATHER_STRING, "temp", "humidity"]);
 }
 
-function getWeatherData(lat, lon, textElementID, iconID){
+function getWeatherData(lat, lon, textID, iconID, param){
 	var weatherAPIKey = config.WEATHER_API_KEY;
 	var weatherURL = `https://api.darksky.net/forecast/${weatherAPIKey}/${lat},${lon}?exclude=hourly,flags,daily&units=si`;
 	$.ajax({
@@ -15,7 +17,22 @@ function getWeatherData(lat, lon, textElementID, iconID){
 			console.log(data);
 			console.log(data.currently.apparentTemperature + "°C " + data.currently.summary);
 			setWeatherIcon(data.currently.icon, iconID);
-			document.getElementById(textElementID).innerHTML = data.currently.apparentTemperature + "°C ";
+			var result = "";
+			param.forEach(function(element){
+				switch (element){
+					case "temp":
+						result += data.currently.apparentTemperature + "°C ";
+						break;
+					case "humidity":
+						result += (data.currently.humidity * 100).toFixed(1) + "%";
+						break;
+					default:
+						result += element;
+						break;
+				}
+			});
+			// document.getElementById(textID).innerHTML = string + data.currently.apparentTemperature + "°C ";
+			document.getElementById(textID).innerHTML = result;
 		}
 	});
 }
