@@ -1,6 +1,12 @@
+
 function getWeather(){
+	getWeatherData(config.PRIMARY_WEATHER_LAT, config.PRIMARY_WEATHER_LON, 'weatherText', 'weatherIcon');
+	getWeatherData(config.SECONDARY_WEATHER_LAT, config.SECONDARY_WEATHER_LON, 'secondaryWeatherText', 'secondaryWeatherIcon');
+}
+
+function getWeatherData(lat, lon, textElementID, iconID){
 	var weatherAPIKey = config.WEATHER_API_KEY;
-	var weatherURL = "https://api.darksky.net/forecast/" + weatherAPIKey + "/49.241722,-123.112812?exclude=hourly,flags,daily&units=si";
+	var weatherURL = `https://api.darksky.net/forecast/${weatherAPIKey}/${lat},${lon}?exclude=hourly,flags,daily&units=si`;
 	$.ajax({
 		url: weatherURL,
 		dataType: "jsonp",
@@ -8,15 +14,15 @@ function getWeather(){
 		success: function(data){
 			console.log(data);
 			console.log(data.currently.apparentTemperature + "°C " + data.currently.summary);
-			setWeatherIcon(data.currently.icon);
-			document.getElementById('weatherText').innerHTML = data.currently.apparentTemperature + "°C ";
+			setWeatherIcon(data.currently.icon, iconID);
+			document.getElementById(textElementID).innerHTML = data.currently.apparentTemperature + "°C ";
 		}
 	});
 }
 
-function setWeatherIcon(string){
+function setWeatherIcon(string, iconID){
 	var skycons = new Skycons({"color": "black"});
-	skycons.add("weatherIcon", string);
+	skycons.add(iconID, string);
 }
 
 function getBusesTime(){
