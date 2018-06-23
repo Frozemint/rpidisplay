@@ -1,8 +1,8 @@
 function getWeather(){
 	var weatherAPIKey = config.WEATHER_API_KEY;
-	var url = "https://api.darksky.net/forecast/" + weatherAPIKey + "/49.241722,-123.112812?exclude=hourly,flags,daily&units=si";
+	var weatherURL = "https://api.darksky.net/forecast/" + weatherAPIKey + "/49.241722,-123.112812?exclude=hourly,flags,daily&units=si";
 	// $.ajax({
-	// 	url: url,
+	// 	url: weatherURL,
 	// 	dataType: "jsonp",
 	// 	async: false,
 	// 	success: function(data){
@@ -12,14 +12,30 @@ function getWeather(){
 	// 		document.getElementById('weatherText').innerHTML = data.currently.apparentTemperature + "°C ";
 	// 	}
 	// });
-	setWeatherIcon("partly-cloudy-day");
-	document.getElementById('weatherText').innerHTML = "18.54" + "°C";
-	// return weatherData.currently.apparentTemperature + "°C "; //weatherData.currently.summary;
 }
 
 function setWeatherIcon(string){
 	var skycons = new Skycons({"color": "black"});
 	skycons.add("weatherIcon", string);
+}
+
+function getBusesTime(){
+	//Jansen, if you figured out a better way in the future, please do let me know
+	//translink url: http://api.translink.ca/rttiapi/v1/stops/[STOP NO]/estimates?apikey=[API]&count=3&timeframe=120&routeNo=[ROUTE NO]
+	var busURL = `https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%20%3D%20'http%3A%2F%2Fapi.translink.ca%2Frttiapi%2Fv1%2Fstops%2F${config.PRIMARY_BUS_STOP_ID}%2Festimates%3Fapikey%3D${config.TRANSLINK_API_KEY}%26count%3D3%26timeframe%3D120%26routeNo%3D${config.PRIMARY_BUS_ROUTE}'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`;
+	$.ajax({
+		url: busURL,
+		dataType: "jsonp",
+		async: false,
+		success: function(data){
+			//Jansen, if you figured out a better way in the future, please do let me know
+			console.log(busURL);
+			console.log(data);
+			data = data.query.results.NextBuses.NextBus;
+			console.log(data.Schedules.Schedule[0].ExpectedCountdown);
+			console.log(data.RouteNo + " " + data.Schedules.Schedule); 
+		}
+	})
 }
 
 function startTime() {

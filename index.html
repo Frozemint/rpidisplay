@@ -6,19 +6,20 @@
 	<meta name='viewport' content='width=device-width, user-scalable=no' charset="utf-8">
 	<link rel="stylesheet" href="css.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="src/time.js"></script>
-	<script src="src/weather.js"></script>
+	<script src="src/config.js"></script>
+	<script src="src/scripts.js"></script>
 	<script src="src/skycons.js"></script>
 	<script>
 		function initPage(){
 			document.getElementById('timeText').innerHTML = startTime();
 			getWeather();
+			getBusesTime();
 			setInterval(function(){
-				//see time.js
+				//see scripts.js
 				document.getElementById('timeText').innerHTML = startTime(); 
 			}, 900); 
 			setInterval(function(){
-				//see weather.js
+				//see scripts.js
 				getWeather();
 			}, 900000);
 		}
@@ -33,6 +34,7 @@
 			<canvas id="weatherIcon" width="40" height="40"></canvas>
 		</div>
 		<div id="secondline">
+			<div id=""
 		</div>
 	</div>
 </body>
