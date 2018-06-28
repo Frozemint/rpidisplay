@@ -1,6 +1,0 @@
-var config = {
-	WEATHER_API_KEY: '',
-	TRANSLINK_API_KEY: '',
-	PRIMARY_BUS_STOP_ID: '',
-	PRIMARY_BUS_ROUTE: ''
-}
